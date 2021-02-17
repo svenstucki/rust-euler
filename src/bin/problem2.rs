@@ -1,4 +1,5 @@
 #![feature(destructuring_assignment)]
+
 use std::env;
 
 fn main() {
