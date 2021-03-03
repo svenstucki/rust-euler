@@ -22,8 +22,24 @@ pub fn prime_sieve(upto: i64) -> Vec<i64> {
   return primes;
 }
 
+pub fn is_prime(nbr: i64) -> bool {
+  if nbr <= 1 {
+    return false;
+  }
+  if nbr >= 3 && nbr % 2 == 0 {
+    return false;
+  }
+
+  for i in 2..nbr {
+    if nbr % i == 0 {
+      return false;
+    }
+  }
+  return true;
+}
+
 #[cfg(test)]
-mod test {
+mod test_prime_sieve {
   use super::*;
 
   #[test]
@@ -35,5 +51,23 @@ mod test {
   fn upper_bound() {
     assert_eq!(prime_sieve(6), vec![1, 2, 3, 5]);
     assert_eq!(prime_sieve(7), vec![1, 2, 3, 5, 7]);
+  }
+}
+
+#[cfg(test)]
+mod test {
+  use super::*;
+
+  #[test]
+  fn test_is_prime() {
+    assert_eq!(is_prime(1), false);
+    assert_eq!(is_prime(2), true);
+    assert_eq!(is_prime(3), true);
+    assert_eq!(is_prime(4), false);
+    assert_eq!(is_prime(89), true);
+    assert_eq!(is_prime(90), false);
+    assert_eq!(is_prime(97), true);
+    assert_eq!(is_prime(99), false);
+    assert_eq!(is_prime(227), true);
   }
 }

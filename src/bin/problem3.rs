@@ -16,12 +16,13 @@ fn main() {
 }
 
 fn solve(nbr: i64) -> i64 {
-  // get all primes up to and including number
-  let primes = euler::utils::prime_sieve::prime_sieve(nbr);
-
-  for p in primes.iter().rev() {
-    if nbr % p == 0 {
-      return *p;
+  for cur in (1..=nbr).rev() {
+    if nbr % cur != 0 {
+      continue;
+    }
+    println!("checking factor {:?}", cur);
+    if euler::utils::prime::is_prime(cur) {
+      return cur;
     }
   }
   panic!("something went wrong, there must be at least one prime factor");
