@@ -1,5 +1,3 @@
-#![feature(destructuring_assignment)]
-
 use std::env;
 use euler::utils::prime;
 
