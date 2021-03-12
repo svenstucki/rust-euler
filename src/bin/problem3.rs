@@ -1,7 +1,7 @@
 #![feature(destructuring_assignment)]
 
 use std::env;
-use euler;
+use euler::utils::prime;
 
 fn main() {
   let nbr_str = match env::args().nth(1) {
@@ -15,17 +15,24 @@ fn main() {
   println!("Result = {:?}", result);
 }
 
-fn solve(nbr: i64) -> i64 {
-  for cur in (1..=nbr).rev() {
-    if nbr % cur != 0 {
-      continue;
+fn solve(mut nbr: i64) -> i64 {
+  let mut cur = 3;
+  if nbr % 2 == 0 {
+    nbr = nbr / 2;
+  }
+  loop {
+    if nbr % cur == 0 && prime::is_prime(cur) {
+      nbr = nbr / cur;
+      println!("discovered factor {:?}, new number is {:?}", cur, nbr);
+      if nbr == 1 {
+        return cur;
+      }
     }
-    println!("checking factor {:?}", cur);
-    if euler::utils::prime::is_prime(cur) {
-      return cur;
+    cur += 2;
+    if cur > nbr {
+      panic!("a prime factor was missed!");
     }
   }
-  panic!("something went wrong, there must be at least one prime factor");
 }
 
 #[cfg(test)]
