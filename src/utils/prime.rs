@@ -22,7 +22,7 @@ pub fn prime_sieve(upto: i64) -> Vec<i64> {
   return primes;
 }
 
-pub fn is_prime(nbr: i64) -> bool {
+pub fn is_prime(nbr: u64) -> bool {
   if nbr <= 1 {
     return false;
   }

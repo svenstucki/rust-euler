@@ -6,14 +6,14 @@ fn main() {
     Some(x) => x,
     None => "600851475143".to_string(),
   };
-  let nbr = nbr_str.parse::<i64>().unwrap();
+  let nbr = nbr_str.parse::<u64>().unwrap();
   println!("Solving problem for number {:?}", nbr);
 
   let result = solve(nbr);
   println!("Result = {:?}", result);
 }
 
-fn solve(mut nbr: i64) -> i64 {
+fn solve(mut nbr: u64) -> u64 {
   let mut cur = 3;
   if nbr % 2 == 0 {
     nbr = nbr / 2;
