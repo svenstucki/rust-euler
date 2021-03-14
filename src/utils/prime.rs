@@ -1,9 +1,7 @@
 use std::ops::Range;
 
-pub fn prime_sieve(upto: i64) -> Vec<i64> {
+pub fn prime_sieve(upto: u32) -> Vec<u32> {
   let mut primes = Vec::with_capacity((upto/2) as usize);
-  primes.push(1);
-
   let mut sieve = Vec::new();
   sieve.resize(upto as usize, false);
   for i in 2..=upto {
@@ -14,7 +12,7 @@ pub fn prime_sieve(upto: i64) -> Vec<i64> {
     }
     // current number is prime, mark multiples
     primes.push(i);
-    for j in (Range { start: i*i, end: upto+1 }).step_by(i as usize) {
+    for j in (Range { start: i.saturating_mul(i), end: upto+1 }).step_by(i as usize) {
       sieve[(j-1) as usize] = true;
     }
   }
@@ -44,13 +42,13 @@ mod test_prime_sieve {
 
   #[test]
   fn small() {
-    assert_eq!(prime_sieve(10), vec![1, 2, 3, 5, 7]);
+    assert_eq!(prime_sieve(10), vec![2, 3, 5, 7]);
   }
 
   #[test]
   fn upper_bound() {
-    assert_eq!(prime_sieve(6), vec![1, 2, 3, 5]);
-    assert_eq!(prime_sieve(7), vec![1, 2, 3, 5, 7]);
+    assert_eq!(prime_sieve(6), vec![2, 3, 5]);
+    assert_eq!(prime_sieve(7), vec![2, 3, 5, 7]);
   }
 }
 
