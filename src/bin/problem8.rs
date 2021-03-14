@@ -24,44 +24,42 @@ static NUMBER: &'static str = "\
 ";
 
 fn main() {
-  let nbr_str = match env::args().nth(1) {
-    Some(x) => x,
-    None => "13".to_string(),
-  };
-  let nbr = nbr_str.parse::<u32>().unwrap();
-  println!("Solving problem for number {:?}", nbr);
+    let nbr_str = match env::args().nth(1) {
+        Some(x) => x,
+        None => "13".to_string(),
+    };
+    let nbr = nbr_str.parse::<u32>().unwrap();
+    println!("Solving problem for number {:?}", nbr);
 
-  let result = solve(nbr);
-  println!("Result = {:?}", result);
+    let result = solve(nbr);
+    println!("Result = {:?}", result);
 }
 
 fn solve(nbr: u32) -> u64 {
-  /*
-    Find the biggest product of nbr adjacent digits in NUMBER
-  */
-  let numbers: Vec<u32> = NUMBER.chars().map(
-    |b| b.to_digit(10).unwrap()
-  ).collect();
+    /*
+      Find the biggest product of nbr adjacent digits in NUMBER
+    */
+    let numbers: Vec<u32> = NUMBER.chars().map(|b| b.to_digit(10).unwrap()).collect();
 
-  let mut biggest_product = 0;
-  for i in 0..numbers.len()-(nbr as usize) {
-    let mut product = 1u64;
-    for j in 0..(nbr as usize) {
-      product *= numbers[i+j] as u64;
+    let mut biggest_product = 0;
+    for i in 0..numbers.len() - (nbr as usize) {
+        let mut product = 1u64;
+        for j in 0..(nbr as usize) {
+            product *= numbers[i + j] as u64;
+        }
+        if product > biggest_product {
+            biggest_product = product;
+        }
     }
-    if product > biggest_product {
-      biggest_product = product;
-    }
-  }
-  biggest_product
+    biggest_product
 }
 
 #[cfg(test)]
 mod tests {
-  use super::*;
+    use super::*;
 
-  #[test]
-  fn example() {
-    assert_eq!(solve(4), 5832);
-  }
+    #[test]
+    fn example() {
+        assert_eq!(solve(4), 5832);
+    }
 }
