@@ -55,10 +55,16 @@ mod test_prime_sieve {
         assert_eq!(prime_sieve(6), vec![2, 3, 5]);
         assert_eq!(prime_sieve(7), vec![2, 3, 5, 7]);
     }
+
+    #[test]
+    fn test_one_million() {
+        let primes = prime_sieve(1_000_000);
+        assert_eq!(primes.len(), 78498);
+    }
 }
 
 #[cfg(test)]
-mod test {
+mod test_is_prime {
     use super::*;
 
     #[test]
